@@ -2,8 +2,7 @@
 
 from datetime import datetime
 
-from src.masks import mask_account
-from src.masks import mask_card
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(card_info: str) -> str:
@@ -18,14 +17,19 @@ def mask_account_card(card_info: str) -> str:
     :param card_info: Строка с информацией о карте или счете
     :return: Строка с замаскированным номером и типом
     """
-    parts: list[str] = card_info.split(" ", 1)
-    card_type: str = parts
-    number: str = parts
+    parts: list[str] = card_info.split()
 
-    if card_type == "Счет":
-        masked_number: str = mask_account(number)
+    if parts[0] == "Счет":
+        card_type: str = "Счет"
+        number_str: str = parts[1]
+        number: int = int(number_str)
+        masked_number: str = get_mask_account(number)
     else:
-        masked_number: str = mask_card(number)
+        # Для карт (Visa, Maestro, MasterCard и т.д.)
+        card_type = " ".join(parts[:-1])
+        number_str = parts[-1]
+        number = int(number_str)
+        masked_number = get_mask_card_number(number)
 
     return f"{card_type} {masked_number}"
 
