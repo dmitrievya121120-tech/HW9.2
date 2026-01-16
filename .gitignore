@@ -32,7 +32,7 @@ venv.bak/
 .mypy_cache/
 .pytest_cache/
 .coverage
-htmlcov/
+#htmlcov/
 .tox/
 coverage.xml
 *.log
