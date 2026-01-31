@@ -40,3 +40,9 @@ for desc in transaction_descriptions(transactions):
 # генерация номеров карт
 for num in card_number_generator(1, 3):
     print(num)
+## Тестирование
+
+Для запуска тестов:
+
+```bash
+pytest
