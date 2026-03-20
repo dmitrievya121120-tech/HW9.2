@@ -3,13 +3,7 @@ import logging
 from typing import Any, Callable, Optional
 
 
-def log(filename: Optional[str] = None) -> Callable:
-    """
-    Логирует начало и конец выполнения функции, а также исключения.
-
-    :param filename: путь к файлу для логов; если None — логируем в консоль.
-    """
-
+def log(_func: Optional[Callable] = None, *, filename: Optional[str] = None) -> Callable:
     def decorator(func: Callable) -> Callable:
         logger = logging.getLogger(f"{__name__}.{func.__name__}")
         logger.setLevel(logging.INFO)
@@ -19,9 +13,7 @@ def log(filename: Optional[str] = None) -> Callable:
         else:
             handler = logging.StreamHandler()
 
-        formatter = logging.Formatter(
-            "%(asctime)s - %(levelname)s - %(message)s"
-        )
+        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
         handler.setFormatter(formatter)
 
         if not logger.handlers:
@@ -35,9 +27,11 @@ def log(filename: Optional[str] = None) -> Callable:
                 logger.info("Function %s finished, returned %r", func.__name__, result)
                 return result
             except Exception as exc:
-                logger.error("Function %s raised %r", func.__name__, exc)
+                logger.exception("Function %s raised %r", func.__name__, exc)
                 raise
 
         return wrapper
 
+    if _func is not None:
+        return decorator(_func)
     return decorator
