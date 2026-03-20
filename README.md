@@ -1,4 +1,4 @@
-﻿# Python Project 1
+# Python Project 1
 ## Learning Python with Poetry
 ## decorators
 
@@ -46,3 +46,25 @@ for num in card_number_generator(1, 3):
 
 ```bash
 pytest
+=======
+
+### Описание проекта
+
+Проект представляет собой учебное приложение на Python для работы с банковскими операциями.  
+Реализованы функции:
+- `filter_by_state` — фильтрует операции по статусу (например, только выполненные операции).
+- `sort_by_date` — сортирует операции по дате в нужном порядке.
+
+Код проекта находится в пакете `src`, а тесты — в папке `tests`.
+
+### URL репозитория
+
+Репозиторий с проектом доступен по адресу:  
+https://github.com/dmitrievya121120-tech/HW9.2
+
+### Установка зависимостей
+
+1. Клонировать репозиторий:
+   ```bash
+   git clone https://github.com/dmitrievya121120-tech/HW9.2.git
+   cd HW9.2
